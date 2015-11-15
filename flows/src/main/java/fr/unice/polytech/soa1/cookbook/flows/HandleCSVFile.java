@@ -24,7 +24,7 @@ public class HandleCSVFile extends RouteBuilder {
 	public void configure() throws Exception {
 
 		from(CSV_INPUT_DIRECTORY)
-				.log("Processing 1 ${file:name}")
+				.log("Processing 7 ${file:name}")
 				.log("  Loading the file as a CSV document")
 				.unmarshal(buildCsvFormat())  // Body is now a List(Map("navn" -> ..., ...), ...)
 				.log("  Splitting the content of the file into atomic lines")
@@ -94,7 +94,7 @@ public class HandleCSVFile extends RouteBuilder {
 			o.setIdMarket(Integer.parseInt((String) data.get("idMarket")));
 			//refProd
 			o.setRef( (String) data.get("refprod"));
-
+			o.setRefId(Integer.parseInt((String) data.get("refprod")));
 			//quantity
 			o.setQuantity(Integer.parseInt((String) data.get("quantity")));
 			//price

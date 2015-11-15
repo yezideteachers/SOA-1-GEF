@@ -21,16 +21,17 @@ import static fr.unice.polytech.soa1.cookbook.flows.utils.Endpoints.GEN_SERVICE;
 
 public class CallExternalPartners extends RouteBuilder {
 
-
+	//id product to put in endpoint (impossiple to put id with ${body or property}
+	private static int idProd=0;
 	@Override
 	public void configure() throws Exception {
 
 		// Consuming a rest service with a Get
 		from("direct:generator")
 				.setHeader(Exchange.HTTP_METHOD, constant("GET"))
+				.setProperty("refId", simple("${body.refId}"))
 				.setBody(constant(""))
-				.to(GEN_SERVICE + "/cxf/demo/catalog/product/0")
-				//.unmarshal().xstream()
+				.to(GEN_SERVICE + "/cxf/demo/catalog/products")
 				.process(readResponseStream)
 				.to("direct:catalog")
 				;
@@ -43,7 +44,7 @@ public class CallExternalPartners extends RouteBuilder {
 			//	.setBody(constant(""))
 				.setProperty("ord_uid", body())
 				.setBody(constant(""))
-				.to(GEN_SERVICE + "/cxf/demo/carts/cart/9")
+				.to(GEN_SERVICE + "/cxf/demo/carts/cart/"+idProd)
 				.setBody(simple("${property.ord_uid}"))
 
 				;
@@ -57,7 +58,7 @@ public class CallExternalPartners extends RouteBuilder {
 		;
 
 		from("direct:catalog")
-				.bean(RequestBuilder.class, "method1(${body})")
+				.bean(RequestBuilder.class, "Json2ListOfMap(${body})")
 				//.log("{{{{{{{{{{{{{{{     }}}}}}}}}}}}}}}")
 			/*	.setBody(constant(""))
 				.to(GEN_SERVICE + "/cxf/demo/catalog/product/1")*/
@@ -67,13 +68,14 @@ public class CallExternalPartners extends RouteBuilder {
 
 		from("direct:bill")
 				.bean(RequestBuilder.class, "makeBill(${body})")
+				.to("direct:generateLetterBill")
 
 				;
 
 	// SOAP: Using the simple method
 		from("direct:commandMethod")
 				//.log("    Computing ${body.idMarket} with [price  : ${body.price} ]")
-				.bean(RequestBuilder.class, "calculCommand(${body},2.4)")
+				.bean(RequestBuilder.class, "calculCommand(${body})")
 				//.to(Bill_COMPUTATION_SERVICE)
 				//.process(result2bill)
 				;

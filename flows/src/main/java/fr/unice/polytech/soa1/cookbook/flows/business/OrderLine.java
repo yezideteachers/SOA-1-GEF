@@ -9,6 +9,7 @@ public class OrderLine implements Serializable{
     private int idClient;
     private int idMarket;
     private String ref;
+    private int refId;
     private String name;
     private String color;
     private double price;
@@ -38,6 +39,14 @@ public class OrderLine implements Serializable{
 
     public void setIdMarket(int idMarket) {
         this.idMarket = idMarket;
+    }
+
+    public int getRefId() {
+        return refId;
+    }
+
+    public void setRefId(int refId) {
+        this.refId = refId;
     }
 
     public String getRef() {

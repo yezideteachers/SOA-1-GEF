@@ -32,22 +32,24 @@ public class HandleAOrder extends RouteBuilder {
 		// Route to handle a given Order
 		from(HANDLE_ORDER_0)
 				.log("    Routing ${body.name} according to quantity ${body.quantity}")
-				.log("      Storing the Person as an exchange property")
+				.log("      Storing the Order as an exchange property")
 				.setProperty("orderline", body())
 				.log("      Calling an existing generator")
-				.setProperty("p_uuid", simple("${body.ref}"))
-				.to("direct:product")
+				.setProperty("p_uuid", simple("${body.refId}"))
+				//.to("direct:product")
 				.to("direct:generator")
-				.setProperty("price", simple("${body.get(\"price\")}"))
-				.setProperty("prod_uid", simple("${body.get(\"id\")}"))
-				.setProperty("prod_map", simple("${body})"))
+				.log("#####################		${body} 	#########")
+				.setProperty("price", simple("${body.get(${property.orderline.refId}).get(\"price\")}"))
+				.setProperty("prod_uid", simple("${body.get(${property.orderline.refId}).get(\"id\")}"))
+				.setProperty("prod_map", simple("${body.get(${property.orderline.refId})}"))
 				.bean(RequestBuilder.class, "setPricebis(${property.orderline},${property.price})")
 				.setBody(simple("${property.orderline}"))
-				//.log("#####################		${property.prod_uid} :::: ${property.prod_map}	#########" )
+				.log("________________________________ debeug : ${body} __________________________________________________")
 				//.process(setPrice)
 				.choice()
-					.when(simple("${property.prod_uid} == ${body.idMarket}"))
-						//.log("___________  call services methods : ${property.prod_uid}___________ ")
+					//if product exist
+					.when(simple("${property.prod_uid} == ${body.refId}"))
+						.log("___________  call services methods : ${body}___________ ")
 						.to("direct:cart")
 						.to("direct:commandMethod")
 						.setProperty("bill_computation_method", constant("COMMAND"))
@@ -58,25 +60,25 @@ public class HandleAOrder extends RouteBuilder {
 				.multicast()
 				.parallelProcessing()
 					//.to("direct:generateLetterBill")
-					//.to("direct:generateLetter")
-					.to("direct:makeBill")
-					.log("=============== facture : " + RequestBuilder.facture + "==================");
+						//.to("direct:generateLetter")
+					.to("direct:bill")
+
 
 		;
 
-		// bad information about a given citizen
+		// bad information about a given order
 		from("direct:badOrder")
 				.log("   Bad information for citizen ${body.name}, ending here.")
 		;
-
+		// generate bills
 		from("direct:generateLetterBill")
-				.bean(LetterWriter.class, "write(${property.orderline}, ${body}," +
-						"${property.bill_computation_method})")
-					.to(CSV_OUTPUT_DIRECTORY + "?fileName=${property.p_uuid}.txt")
+				.log("=============== facture : ${body}  ==== ==============")
+				.bean(LetterWriter.class, "write3(${body})")
+				.to(CSV_OUTPUT_DIRECTORY + "?fileName=f3.txt")
 		;
 		from("direct:generateLetter")
 				.bean(LetterWriter.class, "write2(${body})")
-				.to(CSV_OUTPUT_DIRECTORY + "?fileName=file00.txt")
+				.to(CSV_OUTPUT_DIRECTORY + "?fileName=${file:name}.txt")
 
 		;
 

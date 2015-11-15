@@ -1,6 +1,7 @@
 package fr.unice.polytech.soa1.cookbook.flows;
 
 import fr.unice.polytech.soa1.cookbook.flows.utils.Database;
+import fr.unice.polytech.soa1.cookbook.flows.utils.RequestBuilder;
 import org.apache.camel.builder.RouteBuilder;
 
 import static fr.unice.polytech.soa1.cookbook.flows.utils.Endpoints.*;
@@ -22,8 +23,8 @@ public class TaxFormAccessRoute extends RouteBuilder {
 
 		// Retrieve a Bill form in the database, internal route calling the database bean.
 		from("direct:getTaxForm")
-				.bean(Database.class, "getData(${body})") // Body is the UID of the taxpayer
-				.setBody(simple("${body.amount}"))
+				.bean(RequestBuilder.class, "getBill(${body})") // Body is the UID of the taxpayer
+			//	.setBody(simple("${body.amount}"))
 		;
 
 		/***********************************************************

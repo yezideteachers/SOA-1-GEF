@@ -1,10 +1,9 @@
 package fr.unice.polytech.soa1.cookbook.flows.utils;
 
 
-import fr.unice.polytech.soa1.cookbook.flows.business.OrderLine;
 import fr.unice.polytech.soa1.cookbook.flows.business.BillForm;
+import fr.unice.polytech.soa1.cookbook.flows.business.OrderLine;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class LetterWriter {
@@ -33,5 +32,15 @@ public class LetterWriter {
 		b.append("\n");
 
 		return s;
+	}
+
+	public String write3(Map<Integer, Object> m){
+		String bill ="";
+		for (int i = 0; i < m.size(); i++) {
+			bill+=m.get(i);
+		}
+		bill +='\n';
+		bill +="\n";
+		return bill;
 	}
 }
