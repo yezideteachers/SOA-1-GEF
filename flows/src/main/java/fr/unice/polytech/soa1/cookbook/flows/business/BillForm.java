@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class BillForm implements Serializable {
 
 	private double amount;
+	private double sum;
 	private String date;
 
 	public double getAmount() {
@@ -24,10 +25,19 @@ public class BillForm implements Serializable {
 		this.date = date;
 	}
 
+	public double getSum() {
+		return sum;
+	}
+
+	public void setSum(double sum) {
+		this.sum = sum;
+	}
+
 	@Override
 	public String toString() {
-		return "BillForm {" +
+		return "BillForm{" +
 				"amount=" + amount +
+				", sum=" + sum +
 				", date='" + date + '\'' +
 				'}';
 	}

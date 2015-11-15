@@ -24,7 +24,7 @@ public class Endpoints {
 
 	//public static final String GEN_SERV_RES = "spring-ws://http://localhost:8181/cxf/demo/generators/demogen";
 
-	public static final String STORE_TAX_FORM = "activemq:storeTaxForm";
+	public static final String STORE_BILL_FORM = "activemq:storeBillForm";
 
 	public static final String Bill_COMPUTATION_SERVICE = "spring-ws://http://localhost:8181/cxf/BillComputation";
 

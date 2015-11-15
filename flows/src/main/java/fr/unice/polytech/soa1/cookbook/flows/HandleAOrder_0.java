@@ -18,7 +18,7 @@ import static fr.unice.polytech.soa1.cookbook.flows.utils.Endpoints.HANDLE_ORDER
 /**
  * feature:install http
  */
-public class HandleAOrder extends RouteBuilder {
+public class HandleAOrder_0 extends RouteBuilder {
 	static Map<Integer, Object> input = null;
 	public static ArrayList<String> myList = new ArrayList<String>();
     Database db = new Database();
@@ -62,6 +62,7 @@ public class HandleAOrder extends RouteBuilder {
 					//.to("direct:generateLetterBill")
 						//.to("direct:generateLetter")
 					.to("direct:bill")
+					.to("direct:storeD")
 
 
 		;
@@ -72,9 +73,8 @@ public class HandleAOrder extends RouteBuilder {
 		;
 		// generate bills
 		from("direct:generateLetterBill")
-				.log("=============== facture : ${body}  ==== ==============")
 				.bean(LetterWriter.class, "write3(${body})")
-				.to(CSV_OUTPUT_DIRECTORY + "?fileName=f3.txt")
+				.to(CSV_OUTPUT_DIRECTORY + "?fileName=f4.txt")
 		;
 		from("direct:generateLetter")
 				.bean(LetterWriter.class, "write2(${body})")

@@ -2,16 +2,16 @@ package fr.unice.polytech.soa1.cookbook.rest.Shoes;
 
 
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.json.JSONArray;
 
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.HashMap;
 
-@Path("/products")
+@Path("/shoes")
 // Here we generate JSON data from scratch, one should use a framework instead
 @Produces(MediaType.APPLICATION_JSON)
 

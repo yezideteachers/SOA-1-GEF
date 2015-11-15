@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 @Produces({"text/plain"})
 public interface ICatalog {
 
-	@Path("/getProducts")
+	@Path("/all")
 	@GET
 	public Response getProducts();
 
