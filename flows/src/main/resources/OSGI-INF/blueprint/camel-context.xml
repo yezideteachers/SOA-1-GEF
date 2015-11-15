@@ -15,7 +15,7 @@
     -->
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
-        <package>fr.unice.polytech.soa1.cookbook.flows</package>
+        <package>fr.unice.polytech.soa1.shop3000.flows</package>
     </camelContext>
 
 

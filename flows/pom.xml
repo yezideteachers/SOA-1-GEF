@@ -17,7 +17,7 @@
     <camel.version>2.15.2</camel.version>
     <!-- OSGI bundle information (needed to deploy on ServiceMix) -->
     <bundle.symbolicName>${project.artifactId}</bundle.symbolicName>
-    <bundle.namespace>fr.unice.polytech.soa1.cookbook</bundle.namespace>
+    <bundle.namespace>fr.unice.polytech.soa1.shop3000</bundle.namespace>
   </properties>
   
   <dependencies>

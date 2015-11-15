@@ -25,16 +25,14 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
 
     <jaxrs:server id="genService" address="/demo">
         <jaxrs:serviceBeans>
-            <ref component-id="genSvc"/>
             <ref component-id="genProdSvc"/>
             <ref component-id="genCartSvc"/>
             <ref component-id="genShoesSvc"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
-    <bean id="genSvc" class="fr.unice.polytech.soa1.cookbook.rest.GeneratorService"/>
-    <bean id="genProdSvc" class="fr.unice.polytech.soa1.cookbook.rest.furniture.Service.ProductImpl"/>
-    <bean id="genCartSvc" class="fr.unice.polytech.soa1.cookbook.rest.furniture.Service.CartImpl"/>
-    <bean id="genShoesSvc" class="fr.unice.polytech.soa1.cookbook.rest.Shoes.CatalogService"/>
+    <bean id="genProdSvc" class="fr.unice.polytech.soa1.shop3000.rest.furniture.Service.ProductImpl"/>
+    <bean id="genCartSvc" class="fr.unice.polytech.soa1.shop3000.rest.furniture.Service.CartImpl"/>
+    <bean id="genShoesSvc" class="fr.unice.polytech.soa1.shop3000.rest.shoes.CatalogService"/>
 
 </blueprint>
